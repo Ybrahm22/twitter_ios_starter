@@ -160,7 +160,7 @@
                                 <action selector="onLogOut:" destination="SyY-iA-400" id="7me-Vo-JWV"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Tweet" style="plain" id="ELr-fJ-4KO">
+                        <barButtonItem key="rightBarButtonItem" title="Tweet" id="ELr-fJ-4KO">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="HqW-Xp-yfL" kind="presentation" id="9pt-rA-dgU"/>
@@ -200,13 +200,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="xm3-tC-ifd">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" style="plain" id="O3f-SG-bqZ">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="O3f-SG-bqZ">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="cancel:" destination="ZKb-Hq-m4V" id="Xu9-Lv-Aml"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Tweet" style="plain" id="MB1-1I-7p8">
+                        <barButtonItem key="rightBarButtonItem" title="Tweet" id="MB1-1I-7p8">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="tweet:" destination="ZKb-Hq-m4V" id="bUX-gS-Lhg"/>
