@@ -42,7 +42,7 @@ class TweetViewController: UIViewController, UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        charCountLabel.text = String(280 - tweetTextView.text.count)
+        charCountLabel.text = String(characterLimit - tweetTextView.text.count)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
