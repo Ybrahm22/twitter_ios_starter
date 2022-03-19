@@ -16,10 +16,12 @@ The following **required** functionality is completed:
 
 The following **bonus** features are implemented:
 
-- [X] Added date posted.
-- [ ] When composing a tweet, user sees a countdown for the number of characters remaining for the tweet (out of 280) (2pts)
-- [ ] User can view their profile in a profile tab. (3pts)
-- [ ] User sees embedded images in tweet if available. (3pts)
+- [X] When composing a tweet, user sees a countdown for the number of characters remaining for the tweet (out of 280) (2pts)
+- [X] User can view their profile in a profile tab. (3pts)
+- [X] User sees embedded images in tweet if available. (3pts)
+
+The following **additional** features are implemented:
+- [X] Added time of how long ago a tweet was posted
 
 ## Video Walkthrough
 
