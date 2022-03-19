@@ -108,29 +108,69 @@ class HomeTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TweetCellTableViewCell
-        
         
         let user = tweetArray[indexPath.row]["user"] as! NSDictionary
         
+        let entities = tweetArray[indexPath.row]["entities"] as! NSDictionary
         
-        cell.userNameLabel.text = user["name"] as? String
-        cell.tweetContent.text = tweetArray[indexPath.row]["text"] as? String
-        cell.datePostedLabel.text = getRelativeTime(timeString: (tweetArray[indexPath.row]["created_at"] as? String)!)
+        if let mediaArray = entities["media"] as? [NSDictionary] {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath) as! ImageTableViewCell
+            // print(media.first ?? "")
+            for media in mediaArray {
+                // print(media["media_url_https"] ?? "")
+                let imageUrl = URL(string: (media["media_url_https"] as? String)!)
+                let data = try? Data(contentsOf: imageUrl!)
+                
+                if let imageData = data {
+                    cell.tweetImage.image = UIImage(data: imageData)
+                }
+            }
+            
+            cell.userNameLabel.text = user["name"] as? String
+            cell.tweetContent.text = tweetArray[indexPath.row]["text"] as? String
+            cell.datePostedLabel.text = getRelativeTime(timeString: (tweetArray[indexPath.row]["created_at"] as? String)!)
+            
+            let imageUrl = URL(string: (user["profile_image_url_https"] as? String)!)
+            let data = try? Data(contentsOf: imageUrl!)
+            
+            if let imageData = data {
+                cell.profileImageView.image = UIImage(data: imageData)
+            }
+            
+            cell.setFavorite(tweetArray[indexPath.row]["favorited"] as! Bool)
+            cell.tweetId = tweetArray[indexPath.row]["id"] as! Int
+            cell.setRetweeted(tweetArray[indexPath.row]["retweeted"] as! Bool)
+            
+            return cell
+        } else {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TweetCellTableViewCell
         
-        let imageUrl = URL(string: (user["profile_image_url_https"] as? String)!)
-        let data = try? Data(contentsOf: imageUrl!)
-        
-        if let imageData = data {
-            cell.profileImageView.image = UIImage(data:imageData)
+            cell.userNameLabel.text = user["name"] as? String
+            cell.tweetContent.text = tweetArray[indexPath.row]["text"] as? String
+            cell.datePostedLabel.text = getRelativeTime(timeString: (tweetArray[indexPath.row]["created_at"] as? String)!)
+            
+            let imageUrl = URL(string: (user["profile_image_url_https"] as? String)!)
+            let data = try? Data(contentsOf: imageUrl!)
+            
+            if let imageData = data {
+                cell.profileImageView.image = UIImage(data: imageData)
+            }
+            
+            cell.setFavorite(tweetArray[indexPath.row]["favorited"] as! Bool)
+            cell.tweetId = tweetArray[indexPath.row]["id"] as! Int
+            cell.setRetweeted(tweetArray[indexPath.row]["retweeted"] as! Bool)
+            
+            return cell
         }
-        
-        cell.setFavorite(tweetArray[indexPath.row]["favorited"] as! Bool)
-        cell.tweetId = tweetArray[indexPath.row]["id"] as! Int
-        cell.setRetweeted(tweetArray[indexPath.row]["retweeted"] as! Bool)
-
-        return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+
     
     
     
@@ -178,3 +218,29 @@ extension Date {
         }
 
 
+
+/*
+ 
+ let user = tweetArray[indexPath.row]["user"] as! NSDictionary
+ 
+ let cell = tableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TweetCellTableViewCell
+ 
+ 
+ 
+ cell.userNameLabel.text = user["name"] as? String
+ cell.tweetContent.text = tweetArray[indexPath.row]["text"] as? String
+ cell.datePostedLabel.text = getRelativeTime(timeString: (tweetArray[indexPath.row]["created_at"] as? String)!)
+ 
+ let imageUrl = URL(string: (user["profile_image_url_https"] as? String)!)
+ let data = try? Data(contentsOf: imageUrl!)
+ 
+ if let imageData = data {
+     cell.profileImageView.image = UIImage(data:imageData)
+ }
+ 
+ cell.setFavorite(tweetArray[indexPath.row]["favorited"] as! Bool)
+ cell.tweetId = tweetArray[indexPath.row]["id"] as! Int
+ cell.setRetweeted(tweetArray[indexPath.row]["retweeted"] as! Bool)
+
+ return cell
+ */

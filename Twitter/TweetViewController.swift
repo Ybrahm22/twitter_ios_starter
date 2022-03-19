@@ -8,16 +8,21 @@
 
 import UIKit
 
-class TweetViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tweetTextView.becomeFirstResponder()
-
-        // Do any additional setup after loading the view.
-    }
+class TweetViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var tweetTextView: UITextView!
+    @IBOutlet weak var charCountLabel: UILabel!
+    
+    
+    // Set the max character limit
+    let characterLimit = 280
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tweetTextView.becomeFirstResponder()
+        tweetTextView.delegate = self
+    }
     
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -35,19 +40,24 @@ class TweetViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
-        
-        
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func textViewDidChange(_ textView: UITextView) {
+        charCountLabel.text = String(tweetTextView.text.count)
     }
-    */
-
-
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        let currentText = textView.text ?? ""
+        
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: text)
+        
+        return updatedText.count <= characterLimit
+    }
+    
 }
+
+    
+    
+
